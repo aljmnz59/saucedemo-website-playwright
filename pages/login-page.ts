@@ -1,6 +1,6 @@
 import { Locator, expect, Page } from "@playwright/test";
 
-export class HomePage {
+export class LoginPage {
     //variables
     readonly page:Page;
     readonly pageLogo:Locator;
@@ -57,4 +57,4 @@ export class HomePage {
 
 }
 
-export default HomePage;
+export default LoginPage;
