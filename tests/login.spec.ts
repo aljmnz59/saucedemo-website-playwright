@@ -1,4 +1,4 @@
-import {test, expect, Page} from '@playwright/test';
+import { test } from '@playwright/test';
 import { LoginPage } from '../pages/login-page'; 
 
 const URL = 'https://www.saucedemo.com/';
@@ -27,8 +27,8 @@ test('Verify succesful login using valid credentials', async () => {
     });
 });
 
-test.describe('Verify unsuccessful login using invalid credentials', async () => {
-    test('Unsuccessful Login using invalid username', async ({page}) =>{
+test.describe('Verify unsuccessful login', async () => {
+    test('Unsuccessful Login using invalid username', async () =>{
         await test.step('Act', async () => {
             await loginPage.clickUsername();
             await loginPage.fillUsername('sandard_user');
@@ -37,7 +37,7 @@ test.describe('Verify unsuccessful login using invalid credentials', async () =>
             await loginPage.clickLoginBtn();
         });
         await test.step('Assert', async () => {
-            await loginPage.assertErrorLoginMsg();
+            await loginPage.assertErrInvalidLoginMsg();
         });
     });
 
@@ -50,7 +50,29 @@ test.describe('Verify unsuccessful login using invalid credentials', async () =>
             await loginPage.clickLoginBtn();
         });
         await test.step('Assert', async () => {
-            await loginPage.assertErrorLoginMsg();
+            await loginPage.assertErrInvalidLoginMsg();
+        });
+    });
+
+    test('Unsuccessful login with empty username', async () => {
+        await test.step('Act', async () => {
+            await loginPage.clickPassword();
+            await loginPage.fillPassword('secret_sauce');
+            await loginPage.clickLoginBtn();
+        });
+        await test.step('Assert', async () => {
+            await loginPage.assertErrEmptyUserFieldMsg();
+        });
+    });
+
+    test('Unsuccessful login with empty password', async () => {
+        await test.step('Act', async () => {
+            await loginPage.clickUsername();
+            await loginPage.fillUsername('standard_user');
+            await loginPage.clickLoginBtn();
+        });
+        await test.step('Assert', async () => {
+            await loginPage.assertErrEmptyPassFieldMsg();
         });
     });
 });

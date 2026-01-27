@@ -8,7 +8,9 @@ export class LoginPage {
     readonly password:Locator;
     readonly loginBtn:Locator;
     readonly errorLoginContainer:Locator
-    readonly errorLoginMsg: string = `Epic sadface: Username and password do not match any user in this service`; 
+    readonly errorLoginMsg: string = `Epic sadface: Username and password do not match any user in this service`;
+    readonly errorEmptyUserFieldMsg: string = `Epic sadface: Username is required`;
+    readonly errorEmptyPassFieldMsg: string = `Epic sadface: Password is required`;
 
     //constructor
     constructor (page: Page){
@@ -50,10 +52,19 @@ export class LoginPage {
         await this.loginBtn.click();
     }
 
-    async assertErrorLoginMsg(){
+    async assertErrInvalidLoginMsg(){
         await expect(this.errorLoginContainer).toHaveText(this.errorLoginMsg);
     }
 
+    async assertErrEmptyUserFieldMsg(){
+         await expect(this.errorLoginContainer).toHaveText(this.errorEmptyUserFieldMsg);
+        
+    }
+
+    async assertErrEmptyPassFieldMsg(){
+         await expect(this.errorLoginContainer).toHaveText(this.errorEmptyPassFieldMsg);
+        
+    }
 
 }
 
