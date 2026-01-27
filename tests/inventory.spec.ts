@@ -19,7 +19,7 @@ test.beforeEach(async ({page}) => {
     inventoryPage = new InventoryPage(page);
 });
 
-test('Verify Add and Remove to Cart', async () => {
+test('Verify Adding and Removing Product to Cart', async () => {
     await test.step('Add item to cart', async () => {
         await inventoryPage.clickAddItemToCart();
         await inventoryPage.assertAddCartBadge();
@@ -28,4 +28,12 @@ test('Verify Add and Remove to Cart', async () => {
         await inventoryPage.clickRemoveItemToCart();
         await inventoryPage.assertRmvCartBadge();
     });
+});
+
+test('Verify Product Sort', async () => {
+    await test.step('Click and select product sort', async () => {
+        await inventoryPage.clickProdSort();
+        await inventoryPage.selectProdSort();
+    });
+
 });
