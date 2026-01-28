@@ -4,6 +4,8 @@ import { LoginPage } from '../pages/login-page';
 const URL = 'https://www.saucedemo.com/';
 let loginPage: LoginPage;
 const pageUrl = /.*inventory.html/
+const userName = process.env.USERNAME!;
+const passWord = process.env.PASSWORD!;
 
 test.beforeEach(async ({page}) => {
     await page.goto(URL);
@@ -17,9 +19,9 @@ test('Check saucedemo logo', async () => {
 test('Verify succesful login using valid credentials', async () => {
     await test.step('Act', async () => {
         await loginPage.clickUsername();
-        await loginPage.fillUsername('standard_user');
+        await loginPage.fillUsername(userName);
         await loginPage.clickPassword();
-        await loginPage.fillPassword('secret_sauce');
+        await loginPage.fillPassword(passWord);
         await loginPage.clickLoginBtn();
     });
     await test.step('Assert', async () => {
@@ -33,7 +35,7 @@ test.describe('Verify unsuccessful login', async () => {
             await loginPage.clickUsername();
             await loginPage.fillUsername('sandard_user');
             await loginPage.clickPassword();
-            await loginPage.fillPassword('secret_sauce');
+            await loginPage.fillPassword(passWord);
             await loginPage.clickLoginBtn();
         });
         await test.step('Assert', async () => {
@@ -44,7 +46,7 @@ test.describe('Verify unsuccessful login', async () => {
     test('Unsuccessful Login using invalid password', async () => {
         await test.step('Act', async () => {
             await loginPage.clickUsername();
-            await loginPage.fillUsername('error_user');
+            await loginPage.fillUsername(userName);
             await loginPage.clickPassword();
             await loginPage.fillPassword('sauce_secret');
             await loginPage.clickLoginBtn();
@@ -57,7 +59,7 @@ test.describe('Verify unsuccessful login', async () => {
     test('Unsuccessful login with empty username', async () => {
         await test.step('Act', async () => {
             await loginPage.clickPassword();
-            await loginPage.fillPassword('secret_sauce');
+            await loginPage.fillPassword(passWord);
             await loginPage.clickLoginBtn();
         });
         await test.step('Assert', async () => {
@@ -68,7 +70,7 @@ test.describe('Verify unsuccessful login', async () => {
     test('Unsuccessful login with empty password', async () => {
         await test.step('Act', async () => {
             await loginPage.clickUsername();
-            await loginPage.fillUsername('standard_user');
+            await loginPage.fillUsername(userName);
             await loginPage.clickLoginBtn();
         });
         await test.step('Assert', async () => {

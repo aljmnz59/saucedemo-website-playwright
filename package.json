@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:e2e": "npx playwright test tests/"
+    "test:e2e": "npx playwright test tests/",
+    "test:firefox": "npx playwright test tests/login.spec.ts --project=firefox"
   },
   "keywords": [],
   "author": "",
