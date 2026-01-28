@@ -73,17 +73,32 @@ export class InventoryPage {
     }
 
     async assertProductsName(){
-        const items = await this.itemName.count();
-        for(let i = 0; i < items; i++){
+        const itemName = await this.itemName.count();
+        for(let i = 0; i < itemName; i++){
             await expect(this.itemName.nth(i)).toBeVisible();
             await expect.soft(this.itemName.nth(i)).toHaveText(/.*Sauce Labs/, {useInnerText: true});;
         }
     }
 
     async assertProductsDescription(){
-        const description = await this.itemDescription.count();
-        for(let i = 0; i < description; i++){
+        const itemDesc = await this.itemDescription.count();
+        for(let i = 0; i < itemDesc; i++){
             await expect(this.itemDescription.nth(i)).toBeVisible();
+        }
+    }
+
+    async assertProductsPrice(){
+        const itemPrice = await this.itemPrice.count();
+        for(let i = 0; i < itemPrice; i++){
+            await expect(this.itemPrice.nth(i)).toBeVisible();
+        }
+    }
+
+    async assertProductsImg(){
+        const itemImg = await this.itemImg.count();
+        for(let i = 0; i < itemImg; i++){
+            await expect(this.itemImg.nth(i)).toBeVisible();
+            await expect(this.itemImg.nth(i)).toHaveRole('img');
         }
     }
 
