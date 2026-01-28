@@ -8,6 +8,13 @@ export class InventoryPage {
     readonly removeToCartBtn: Locator;
     readonly prodSort: Locator;
     readonly prodList: Locator;
+    readonly prodDetails: Locator;
+    readonly itemName: Locator;
+    readonly itemDescription: Locator;
+    readonly itemPrice: Locator;
+    readonly itemImg: Locator;
+    readonly childElements: Locator
+
     //constructors
     constructor(page: Page){
         this.page = page;
@@ -16,6 +23,12 @@ export class InventoryPage {
         this.removeToCartBtn = page.locator('//*[@id="remove-sauce-labs-backpack"]');
         this.prodSort = page.locator('.product_sort_container');
         this.prodList = page.locator('.inventory_list');
+        this.prodDetails = page.locator('.inventory_item');
+        this.itemName = page.locator('.inventory_item_name');
+        this.itemDescription = page.locator('.inventory_item_desc');
+        this.itemPrice = page.locator('.inventory_item_price');
+        this.itemImg = page.locator('.inventory_item_img');
+        this.childElements = page.locator('.inventory_list').locator('.inventory_item');
     }   
     //methods
     async clickAddItemToCart(){
@@ -50,6 +63,37 @@ export class InventoryPage {
         await expect(this.prodList).toHaveValue(/[A-Z]/)
     }
     */
+
+    async assertProductInfo(){
+        await expect(this.prodDetails.first()).toBeVisible();
+        await expect(this.itemName.first()).toBeVisible();
+        await expect(this.itemDescription.first()).toBeVisible();
+        await expect(this.itemPrice.first()).toBeVisible();
+        await expect(this.itemImg.first()).toBeVisible();
+    }
+
+    async asserProductsInfo(){
+        const locatorArray = await this.childElements.all();
+        for (const locator of locatorArray){
+            const text = await locator.allTextContents();
+            console.log(text);
+        }
+    }
+
+    async assertProductsName(){
+        const items = await this.itemName.count();
+        for(let i = 0; i < items; i++){
+            await expect(this.itemName.nth(i)).toBeVisible();
+            await expect.soft(this.itemName.nth(i)).toHaveText(/.*Sauce Labs/, {useInnerText: true});;
+        }
+    }
+
+    async assertProductsDescription(){
+        const description = await this.itemDescription.count();
+        for(let i = 0; i < description; i++){
+            await expect(this.itemDescription.nth(i)).toBeVisible();
+        }
+    }
 
 }
 

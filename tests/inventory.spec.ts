@@ -40,14 +40,23 @@ test('Verify user can remove item in cart', async () => {
 test('Verify user can sort inventory product', async () => {
     await test.step('Click product sort', async () => {
         await inventoryPage.clickProdSort();
-        // await inventoryPage.assertProdSortOpt(); BUG #1 - Product sort elemet (<select> doesn't have multiple attributes, unable to assert option values)
     });
     await test.step('Select product sort', async () => {
         await inventoryPage.selectProdSortAZ();
+        
     });
-    /* Product Sort Order Assertion
+    //Product Sort Order Assertion
     await test.step('Check product list order', async () => {
-        await inventoryPage.assertProdSort();
+        await inventoryPage.assertProdSortOpt(); //BUG #1 - Product sort elemet (<select> doesn't have multiple attributes, unable to assert option values)
     });
-    */
+});
+    
+test('Verify product details are displayed', async () => {
+    await test.step('Check products name visibility', async () => {
+        await inventoryPage.assertProductsName(); //BUG #2 - Unexpected product name displayed on page
+    });
+    await test.step('Check products description visibility', async () => {
+        await inventoryPage.assertProductsDescription(); 
+    });
+        
 });
