@@ -19,21 +19,30 @@ test.beforeEach(async ({page}) => {
     inventoryPage = new InventoryPage(page);
 });
 
-test('Verify Adding and Removing Product to Cart', async () => {
+test('Verify user can add item to cart', async () => {
     await test.step('Add item to cart', async () => {
         await inventoryPage.clickAddItemToCart();
         await inventoryPage.assertAddCartBadge();
     });
-    await test.step('Remove item to cart', async () => {
+    
+});
+
+test('Verify user can remove item in cart', async () => {
+    await test.step('Add item to cart', async () => {
+        await inventoryPage.clickAddItemToCart();
+    });
+    await test.step('Remove item in cart', async () => {
         await inventoryPage.clickRemoveItemToCart();
         await inventoryPage.assertRmvCartBadge();
     });
 });
 
-test('Verify Product Sort', async () => {
-    await test.step('Click and select product sort', async () => {
+test('Verify user can sort inventory product', async () => {
+    await test.step('Click product sort', async () => {
         await inventoryPage.clickProdSort();
-        await inventoryPage.selectProdSort();
+        // await inventoryPage.assertProdSortOpt(); BUG #1 - Product sort elemet (<select> doesn't have multiple attributes, unable to assert option values)
     });
-
+    await test.step('Select product sort', async () => {
+        await inventoryPage.selectProdSortAZ();
+    });
 });

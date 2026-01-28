@@ -36,7 +36,11 @@ export class InventoryPage {
         await this.prodSort.click();
     }
 
-    async selectProdSort(){
+    async assertProdSortOpt(){
+        await expect.soft(this.prodSort).toHaveValues(['az', 'za', 'lohi', 'hilo']);
+    }
+
+    async selectProdSortAZ(){
         await this.prodSort.selectOption({value:'az'});
     }
 
