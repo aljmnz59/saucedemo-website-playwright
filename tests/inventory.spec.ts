@@ -45,4 +45,9 @@ test('Verify user can sort inventory product', async () => {
     await test.step('Select product sort', async () => {
         await inventoryPage.selectProdSortAZ();
     });
+    /* Product Sort Order Assertion
+    await test.step('Check product list order', async () => {
+        await inventoryPage.assertProdSort();
+    });
+    */
 });

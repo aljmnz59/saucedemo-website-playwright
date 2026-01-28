@@ -7,6 +7,7 @@ export class InventoryPage {
     readonly cartBadge: Locator;
     readonly removeToCartBtn: Locator;
     readonly prodSort: Locator;
+    readonly prodList: Locator;
     //constructors
     constructor(page: Page){
         this.page = page;
@@ -14,7 +15,8 @@ export class InventoryPage {
         this.cartBadge = page.locator('.shopping_cart_badge');
         this.removeToCartBtn = page.locator('//*[@id="remove-sauce-labs-backpack"]');
         this.prodSort = page.locator('.product_sort_container');
-    }
+        this.prodList = page.locator('.inventory_list');
+    }   
     //methods
     async clickAddItemToCart(){
         await this.addToCartBtn.click();
@@ -43,6 +45,11 @@ export class InventoryPage {
     async selectProdSortAZ(){
         await this.prodSort.selectOption({value:'az'});
     }
+    /*
+    async assertProdSort(){
+        await expect(this.prodList).toHaveValue(/[A-Z]/)
+    }
+    */
 
 }
 
