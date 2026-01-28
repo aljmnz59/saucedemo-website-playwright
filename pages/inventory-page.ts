@@ -64,14 +64,6 @@ export class InventoryPage {
     }
     */
 
-    async assertProductInfo(){
-        await expect(this.prodDetails.first()).toBeVisible();
-        await expect(this.itemName.first()).toBeVisible();
-        await expect(this.itemDescription.first()).toBeVisible();
-        await expect(this.itemPrice.first()).toBeVisible();
-        await expect(this.itemImg.first()).toBeVisible();
-    }
-
     async asserProductsInfo(){
         const locatorArray = await this.childElements.all();
         for (const locator of locatorArray){
