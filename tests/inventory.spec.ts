@@ -45,6 +45,9 @@ test('Verify user can sort inventory product', async () => {
         await inventoryPage.selectProdSortAZ();
         
     });
+    await test.step('Check selected product sort', async () => {
+        await inventoryPage.assertProdSort();
+    })
     //Product Sort Order Assertion
     await test.step('Check product list order', async () => {
         await inventoryPage.assertProdSortOpt(); //BUG #1 - Product sort elemet (<select> doesn't have multiple attributes, unable to assert option values)
@@ -52,11 +55,16 @@ test('Verify user can sort inventory product', async () => {
 });
     
 test('Verify product details are displayed', async () => {
-    await test.step('Check products name visibility', async () => {
+    await test.step('Check products name', async () => {
         await inventoryPage.assertProductsName(); //BUG #2 - Unexpected product name displayed on page
     });
-    await test.step('Check products description visibility', async () => {
+    await test.step('Check products description', async () => {
         await inventoryPage.assertProductsDescription(); 
     });
-        
+    await test.step('Check products price', async () => {
+        await inventoryPage.assertProductsPrice();
+    });
+    await test.step('Check products image', async () => {
+        await inventoryPage.assertProductsImg();
+    });
 });

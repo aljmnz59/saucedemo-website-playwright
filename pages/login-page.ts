@@ -16,9 +16,9 @@ export class LoginPage {
     constructor (page: Page){
         this.page = page;
         this.pageLogo = page.locator('.login_logo');
-        this.username = page.getByPlaceholder('Username');
-        this.password = page.getByPlaceholder('Password');
-        this.loginBtn = page.getByRole('button', {name : 'Login'});
+        this.username = page.locator('[data-test="username"]');
+        this.password = page.locator('[data-test="password"]');
+        this.loginBtn = page.locator('[data-test="login-button"]');
         this.errorLoginContainer = page.locator('.error-message-container.error');
     }
 
