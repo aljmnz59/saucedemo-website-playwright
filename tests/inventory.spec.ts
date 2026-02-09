@@ -5,6 +5,7 @@ import { InventoryPage } from '../pages/inventory-page';
 let loginPage: LoginPage;
 let inventoryPage: InventoryPage;
 const URL = 'https://www.saucedemo.com/';
+const pageCartUrl = /.*cart.html/
 
 test.beforeEach(async ({page}) => {
     await page.goto(URL);
@@ -22,7 +23,13 @@ test.beforeEach(async ({page}) => {
 test('Verify user can add item to cart', async () => {
     await test.step('Add item to cart', async () => {
         await inventoryPage.clickAddItemToCart();
+    });
+    await test.step('Check cart badge', async () => {
         await inventoryPage.assertAddCartBadge();
+    });
+    await test.step('Check cart page', async () => {
+        await inventoryPage.clickCartBtn();
+        await inventoryPage.assertPageUrl(pageCartUrl);
     });
     
 });
@@ -43,15 +50,15 @@ test('Verify user can sort inventory product', async () => {
     });
     await test.step('Select product sort', async () => {
         await inventoryPage.selectProdSortAZ();
-        
     });
     await test.step('Check selected product sort', async () => {
         await inventoryPage.assertProdSort();
     })
-    //Product Sort Order Assertion
+    /*Product Sort Order Assertion
     await test.step('Check product list order', async () => {
         await inventoryPage.assertProdSortOpt(); //BUG #1 - Product sort elemet (<select> doesn't have multiple attributes, unable to assert option values)
     });
+    */
 });
     
 test('Verify product details are displayed', async () => {

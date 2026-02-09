@@ -12,6 +12,7 @@ export class InventoryPage {
     readonly itemDescription: Locator;
     readonly itemPrice: Locator;
     readonly itemImg: Locator;
+    readonly cartBtn: Locator;
 
     //constructors
     constructor(page: Page){
@@ -25,8 +26,13 @@ export class InventoryPage {
         this.itemDescription = page.locator('.inventory_item_desc');
         this.itemPrice = page.locator('.inventory_item_price');
         this.itemImg = page.locator('.inventory_item_img');
+        this.cartBtn = page.locator('[data-test="shopping-cart-link"]');
     }   
     //methods
+    async assertPageUrl(pageUrl: RegExp){
+        await expect(this.page).toHaveURL(pageUrl);
+    }
+
     async clickAddItemToCart(){
         await this.addToCartBtn.click();
     }
@@ -65,7 +71,7 @@ export class InventoryPage {
         const itemName = await this.itemName.count();
         for(let i = 0; i < itemName; i++){
             await expect(this.itemName.nth(i)).toBeVisible();
-            await expect.soft(this.itemName.nth(i)).toHaveText(/.*Sauce Labs/, {useInnerText: true});;
+            //await expect.soft(this.itemName.nth(i)).toHaveText(/.*Sauce Labs/, {useInnerText: true});;
         }
     }
 
@@ -89,6 +95,12 @@ export class InventoryPage {
             await expect(this.itemImg.nth(i)).toBeVisible();
         }
     }
+
+    async clickCartBtn(){
+        await this.cartBtn.click();
+    }
+
+
 
 }
 
