@@ -4,7 +4,13 @@
   "main": "index.js",
   "scripts": {
     "test:e2e": "npx playwright test tests/",
+    "test:e2e:all": "npx playwright test tests --project=all-browsers-and-tests",
+    "test:e2e:ci": "CI=1 npx playwright test --project=ci --shard=$CI_NODE_INDEX/$CI_NODE_TOTAL",
+    "test:e2e:dev": "npx playwright test tests-examples/ --project=chromium --headed --retries=0 --reporter=line",
+    "test:e2e:sanity": "npx playwright test tests-examples/ --grep @sanity --project=chromium",
+    "test:e2e:non-smoke": "npx playwright test tests-examples/ --grep-invert @sanity --project=firefox",
     "test:firefox": "npx playwright test tests/login.spec.ts --project=firefox"
+    
   },
   "keywords": [],
   "author": "",
@@ -13,5 +19,8 @@
   "devDependencies": {
     "@playwright/test": "^1.58.0",
     "@types/node": "^25.0.10"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.4"
   }
 }
