@@ -28,7 +28,7 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: npx playwright install
-    - run: npm run test:e2e
+    - run: npm run test:e2e:all
     env:
       USERNAME: "standard_user"
       PASSWORD: "secret_sauce"
