@@ -3,39 +3,46 @@ import { LoginPage } from '../pages/login-page';
 
 const URL = 'https://www.saucedemo.com/';
 let loginPage: LoginPage;
-const pageUrl = /.*inventory.html/
-const userName = process.env.USERNAME!;
-const passWord = process.env.PASSWORD!;
+const pageInventoryUrl = /.*inventory.html/;
+
 
 test.beforeEach(async ({page}) => {
     await page.goto(URL);
     loginPage = new LoginPage(page);
 });
 
-test('Check saucedemo logo', async () => {
+test('Verify saucedemo logo', async () => {
     await loginPage.assertPageLogo();
 });
 
 test('Verify succesful login using valid credentials', async () => {
-    await test.step('Act', async () => {
+    await test.step('Input valid user name', async () => {
         await loginPage.clickUsername();
-        await loginPage.fillUsername(userName);
+        await loginPage.fillUsername('standard_user');
+    });
+    await test.step('Input valid password', async () => {
         await loginPage.clickPassword();
-        await loginPage.fillPassword(passWord);
+        await loginPage.fillPassword('secret_sauce');
+    });
+    await test.step('Click Login button', async () => {
         await loginPage.clickLoginBtn();
     });
-    await test.step('Assert', async () => {
-        await loginPage.assertPageUrl(pageUrl);
+    await test.step('Check inventory page URL', async () => {
+        await loginPage.assertPageUrl(pageInventoryUrl);
     });
 });
 
 test.describe('Verify unsuccessful login', async () => {
     test('Unsuccessful Login using invalid username', async () =>{
-        await test.step('Act', async () => {
+        await test.step('Input invalid username', async () => {
             await loginPage.clickUsername();
             await loginPage.fillUsername('sandard_user');
+        });
+        await test.step('Input valid username', async () => {
             await loginPage.clickPassword();
-            await loginPage.fillPassword(passWord);
+            await loginPage.fillPassword('secret_sauce');
+        });
+        await test.step('Clicl Login button', async () => {
             await loginPage.clickLoginBtn();
         });
         await test.step('Assert', async () => {
@@ -46,7 +53,7 @@ test.describe('Verify unsuccessful login', async () => {
     test('Unsuccessful Login using invalid password', async () => {
         await test.step('Act', async () => {
             await loginPage.clickUsername();
-            await loginPage.fillUsername(userName);
+            await loginPage.fillUsername('standard_user');
             await loginPage.clickPassword();
             await loginPage.fillPassword('sauce_secret');
             await loginPage.clickLoginBtn();
@@ -59,7 +66,7 @@ test.describe('Verify unsuccessful login', async () => {
     test('Unsuccessful login with empty username', async () => {
         await test.step('Act', async () => {
             await loginPage.clickPassword();
-            await loginPage.fillPassword(passWord);
+            await loginPage.fillPassword('secret_sauce');
             await loginPage.clickLoginBtn();
         });
         await test.step('Assert', async () => {
@@ -70,7 +77,7 @@ test.describe('Verify unsuccessful login', async () => {
     test('Unsuccessful login with empty password', async () => {
         await test.step('Act', async () => {
             await loginPage.clickUsername();
-            await loginPage.fillUsername(userName);
+            await loginPage.fillUsername('standard_user');
             await loginPage.clickLoginBtn();
         });
         await test.step('Assert', async () => {
