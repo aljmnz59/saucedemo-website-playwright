@@ -38,49 +38,64 @@ test.describe('Verify unsuccessful login', async () => {
             await loginPage.clickUsername();
             await loginPage.fillUsername('sandard_user');
         });
-        await test.step('Input valid username', async () => {
+        await test.step('Input valid paswword', async () => {
             await loginPage.clickPassword();
             await loginPage.fillPassword('secret_sauce');
         });
-        await test.step('Clicl Login button', async () => {
+        await test.step('Click Login button', async () => {
             await loginPage.clickLoginBtn();
         });
-        await test.step('Assert', async () => {
+        await test.step('Check invalid error message', async () => {
             await loginPage.assertErrInvalidLoginMsg();
         });
     });
 
     test('Unsuccessful Login using invalid password', async () => {
-        await test.step('Act', async () => {
+        await test.step('Input valid username', async () => {
             await loginPage.clickUsername();
             await loginPage.fillUsername('standard_user');
-            await loginPage.clickPassword();
-            await loginPage.fillPassword('sauce_secret');
             await loginPage.clickLoginBtn();
         });
-        await test.step('Assert', async () => {
+        await test.step('Input invalid password', async () => {
+            await loginPage.clickPassword();
+            await loginPage.fillPassword('sauce_secret');
+        });
+        await test.step('Click Login button', async () => {
+            await loginPage.clickLoginBtn();
+        });
+        await test.step('Check invalid error message', async () => {
             await loginPage.assertErrInvalidLoginMsg();
         });
     });
 
     test('Unsuccessful login with empty username', async () => {
-        await test.step('Act', async () => {
+        await test.step('Leave empty the user name field', async () => {
+            await loginPage.clickUsername();
+        });
+        await test.step('Input password', async () => {
             await loginPage.clickPassword();
             await loginPage.fillPassword('secret_sauce');
+        });
+        await test.step('Click Login button', async () => {
             await loginPage.clickLoginBtn();
         });
-        await test.step('Assert', async () => {
+        await test.step('Check field empty error message', async () => {
             await loginPage.assertErrEmptyUserFieldMsg();
         });
     });
 
     test('Unsuccessful login with empty password', async () => {
-        await test.step('Act', async () => {
+        await test.step('Input username', async () => {
             await loginPage.clickUsername();
             await loginPage.fillUsername('standard_user');
+        });
+        await test.step('Leave empty the password field', async () => {
+            await loginPage.clickPassword();
+        })
+        await test.step('Click Login button', async () => {
             await loginPage.clickLoginBtn();
         });
-        await test.step('Assert', async () => {
+        await test.step('Check field empty error message', async () => {
             await loginPage.assertErrEmptyPassFieldMsg();
         });
     });
