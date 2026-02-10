@@ -27,7 +27,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install
-    - run: npx playwright install
+    - run: npx playwright install --with-deps
     - run: npm run test:e2e
     env:
       USERNAME: "standard_user"
