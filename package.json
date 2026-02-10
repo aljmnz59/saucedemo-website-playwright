@@ -9,15 +9,14 @@
     "test:e2e:sanity": "npx playwright test tests-examples/ --grep @sanity --project=chromium",
     "test:e2e:non-smoke": "npx playwright test tests-examples/ --grep-invert @sanity --project=firefox",
     "test:firefox": "npx playwright test tests/login.spec.ts --project=firefox",
-     "test:webkit": "npx playwright test tests/login.spec.ts --project=webkit"
-    
+    "test:webkit": "npx playwright test tests/login.spec.ts --project=webkit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@playwright/test": "^1.58.0",
+    "@playwright/test": "^1.58.2",
     "@types/node": "^25.0.10"
   },
   "dependencies": {
